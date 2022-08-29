@@ -39,3 +39,26 @@ b.
  
  
  c. We would need to look at the length of each gene for each state by substracting the start and end points of each gene. Add together the lengths of each gene that are in the same state for each state to determine which state makes up the largest piece of the genome.
+ 
+ 4.
+ b.
+```
+ 123 HG01880	ACB	AFR
+  112 NA19625	ASW	AFR
+  173 HG02922	ESN	AFR
+  180 HG02462	GWD	AFR
+  122 NA19017	LWK	AFR
+  128 HG03052	MSL	AFR
+  206 NA18484	YRI	AFR
+```
+The first column is the number of samples in each population (column 3) in the AFR superpopulation.
+
+grep "AFR" integrated_call_samples.panel | sort -k 2 | cut -f -3 | uniq -cf 1
+
+c. For all 5 populations, I would use the same code, but instead of (grep "AFR") I would substitute the "AFR" with the other superpopulations. 
+ 
+ 
+ 
+ 
+ 
+ 

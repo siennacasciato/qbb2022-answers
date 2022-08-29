@@ -95,11 +95,18 @@ bedtools closest -a variants.bed -b genes.sorted.bed
 
 
 10293 variants
+```
 sort -k 7 variants | uniq -cf 6 | wc
      200    1600   12047
+```
 200 unique genes.
 
 on average: 51 variants connected to a gene on average.
+(10293/200=51)
+
+git add README.md exercise1.sh
+git commit -m "edited script and answers for day 1 hw exercise 1"
+git push
 
 
 

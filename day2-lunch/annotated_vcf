@@ -1,0 +1,143 @@
+import sys
+#imports sys module
+
+def parse_vcf(fname):
+    vcf = []
+#holds the entire file we will work with
+    info_description = {}
+#info about the headers
+    info_type = {}
+#tells us what type each info field should be
+    format_description = {}
+#genotype formatting that is being used
+    type_map = {
+#the type of header
+	
+#initializing variables
+
+        "Float": float,
+        "Integer": int,
+        "String": str
+        }
+    malformed = 0
+#initializing
+
+
+try:
+        fs = open(fname)
+    except:
+        raise FileNotFoundError(f"{fname} does not appear to exist", file=sys.stderr)
+#opening the input file, if you can't then the file does not exist
+
+for h, line in enumerate(fs):
+#going through each line in the file
+        if line.startswith("#"):
+#if the line starts with a header
+            try:
+                if line.startswith("##FORMAT"):
+                    fields = line.split("=<")[1].rstrip(">\r\n") + ","
+                    i = 0
+                    start = 0
+                    in_string = False
+                    while i < len(fields):
+                        if fields[i] == "," and not in_string:
+                            name, value = fields[start:i].split('=')
+                            if name == "ID":
+                                ID = value
+								elif name == "Description":
+                                desc = value
+                            start = i + 1
+                        elif fields[i] == '"':
+                            in_string = not in_string
+                        i += 1
+                    format_description[ID] = desc.strip('"')
+                elif line.startswith("##INFO"):
+                    fields = line.split("=<")[1].rstrip(">\r\n") + ","
+                    i = 0
+                    start = 0
+                    in_string = False
+                    while i < len(fields):
+                        if fields[i] == "," and not in_string:
+                            name, value = fields[start:i].split('=')
+                            if name == "ID":
+                                ID = value
+                            elif name == "Description":
+                                desc = value
+                            elif name == "Type":
+                                Type = value
+                            start = i + 1
+                        elif fields[i] == '"':
+                            in_string = not in_string
+                        i += 1
+                    info_description[ID] = desc.strip('"')
+                    info_type[ID] = Type
+                elif line.startswith('#CHROM'):
+                    fields = line.lstrip("#").rstrip().split("\t")
+                    vcf.append(fields)
+#try block of code is making sure everything is formatted correctly
+            except:
+                raise RuntimeError("Malformed header")
+        else:
+            try:
+                fields = line.rstrip().split("\t")
+#making a list of the columns, getting rid of extra characters, then splitting using tab delimited
+                fields[1] = int(fields[1])
+#the first line is the position of the variants
+                if fields[5] != ".":
+                    fields[5] = float(fields[5])
+#if the 6th line in the vcf file is not a period, we are making it a float
+                info = {}
+#making a dictionary
+                for entry in fields[7].split(";"):
+#breaking string of info into a list, then looping through all of the info in the list
+                    temp = entry.split("=")
+#list of two items from the list, from before and after the = sign
+                    if len(temp) == 1:
+#if there is no = sign, it is only something by itself so it will output 1
+                        info[temp[0]] = None
+#if there is no = sign, we are setting it to say that it has no value (none)
+                    else:
+#there is a value
+                        name, value = temp
+#setting 2 variables to equal name and value. Name is the number before the = sign and value is the number after the = sign.
+                        Type = info_type[name]
+#using the info_type dictionary to see what type is assigned to different variable types
+                        info[name] = type_map[Type](value)
+#pulling out a number associated with a data type and putting it in a dictionary
+                fields[7] = info
+#setting the 8th value to be the dictionary
+                if len(fields) > 8:
+#the file does not have genotype information
+                    fields[8] = fields[8].split(":")
+#makes a list and splits information in field 8 with a colon and stores it in the 9th column
+                    if len(fields[8]) > 1:
+                        for i in range(9, len(fields)):
+                            fields[i] = fields[i].split(':')
+#looping through indexes of each genotype, formatting the genotype field into a list
+                    else:
+                        fields[8] = fields[8][0]
+#creating a list of field 8 but only of the first value in field 8 and turn it into a string
+                vcf.append(fields)
+#putting the fields list into a vcf file.
+            except:
+                malformed += 1
+    vcf[0][7] = info_description
+    if len(vcf[0]) > 8:
+#if there is genotype data
+        vcf[0][8] = format_description
+    if malformed > 0:
+#if there are malformed lines
+        print(f"There were {malformed} malformed entries", file=sys.stderr)
+    return vcf
+#print code that will tell us how many lines were malformed
+
+if __name__ == "__main__":
+    fname = sys.argv[1]
+#setting file name of the vcf file
+    vcf = parse_vcf(fname)
+#running the fuction on the file that we inputted
+    for i in range(10):
+        print(vcf[i])
+#prints the first 10 lines
+
+

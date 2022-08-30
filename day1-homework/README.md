@@ -108,7 +108,7 @@ on average: 51 variants connected to a gene on average.
 
 git add README.md exercise1.sh
 git commit -m "edited script and answers for day 1 hw exercise 1"
-git push
+git push	
 
 
 

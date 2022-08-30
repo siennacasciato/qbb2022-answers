@@ -56,6 +56,37 @@ The first column is the number of samples in each population (column 3) in the A
 grep "AFR" integrated_call_samples.panel | sort -k 2 | cut -f -3 | uniq -cf 1
 
 c. For all 5 populations, I would use the same code, but instead of (grep "AFR") I would substitute the "AFR" with the other superpopulations. 
+
+5.
+b. cut -f 1-9,13 random_snippet.vcf > HG00100.vcf 
+
+c. 
+```
+grep -c "0|0" HG00100.vcf 
+9514
+```
+```
+grep -c "0|1" HG00100.vcf 
+127
+```
+```
+grep -c "1|0" HG00100.vcf 
+178
+```
+
+```
+grep -c "1|1" HG00100.vcf 
+181
+```
+
+d. 15 times where "AF=1" is exactly written.
+grep -cw "AF=1" HG00100.vcf 
+
+e. Since there are 6 superpopulations that could be combined with AF, (example: EUR_AF, etc.) I think that AF=1 could appear about 6 times per row.
+
+f. I would extract the AFR values by using grep -C "AFR" HG00100.vcf. So that it would extract the lines of the AFR values.
+
+
  
  
  

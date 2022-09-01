@@ -50,3 +50,20 @@ if __name__ == "__main__":
     print(bed[0])
 ```
 There were no malformed entries found.
+
+
+2.
+import sys
+
+import bed_parser
+bed_parser.bed_parser()
+
+open("bed_parser")
+
+
+
+
+
+
+
+

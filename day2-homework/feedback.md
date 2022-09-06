@@ -1,0 +1,3 @@
+# Feedback day2-homework
+
+Your annotation of the VCF parser looks good. Your comments were clear and you appeared to understand what each part of the code was doing and why. Your annotation code also looks good. The only thing it's missing is the last step of keeping track of and reporting the number of entries with missing IDs. That should be trivial to implement under your existing code. You appear to understand the basics of using dictionaries and how to use them. You're doing well. Keep it up!

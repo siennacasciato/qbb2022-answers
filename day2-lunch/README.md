@@ -53,12 +53,24 @@ There were no malformed entries found.
 
 
 2.
+#!/usr/bin//env python3
 import sys
 
-import bed_parser
-bed_parser.bed_parser()
+from bedfile import parse_bed
 
-open("bed_parser")
+ex2 = parse_bed("hg38_gencodev41_chr21.bed")
+
+exons = []
+
+for line in ex2:
+    exons.append(line[9])
+
+exons.sort()
+
+print(exons[len(exons)//2])
+
+The median exon number is 4.
+
 
 
 

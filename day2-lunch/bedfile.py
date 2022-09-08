@@ -1,8 +1,5 @@
-#QBB2022 - Day 2 - Lunch Exercises Submission
-
-1. 
 #!/usr/bin/env python3
-```
+
 import sys
 
 def parse_bed(fname):
@@ -20,11 +17,12 @@ def parse_bed(fname):
         if fieldN < 3:
             print(f"Line {i} appears malformed", file=sys.stderr)
             continue
-        #try:
-        if True:
+        try:
+        #if True:
             for j in range(min(len(field_types), len(fields))):
                 if fields[j]== ".":
                     continue
+                print(i)
                 fields[j] = field_types[j](fields[j])
             if fieldN >= 9:
                 Rgb = fields[8].split(",")
@@ -40,44 +38,11 @@ def parse_bed(fname):
                 fields[10] = size
                 print(f"Line {i} appears malformed", file=sys.stderr)      
             bed.append(fields)
-        #except:
-            #print(f"Line {i} appears malformed", file=sys.stderr)
+        except:
+            print(f"Line {i} appears malformed", file=sys.stderr)
     fs.close()
     return bed
 if __name__ == "__main__":
     fname = sys.argv[1]
     bed = parse_bed(fname)
     print(bed[0])
-```
-There were no malformed entries found.
-
-
-2.
-#!/usr/bin//env python3
-```
-import sys
-
-from bedfile import parse_bed
-
-ex2 = parse_bed("hg38_gencodev41_chr21.bed")
-
-exons = []
-
-for line in ex2:
-    exons.append(line[9])
-
-exons.sort()
-
-print(exons[len(exons)//2])
-```
-
-The median exon number is 4.
-
-
-
-
-
-
-
-
-

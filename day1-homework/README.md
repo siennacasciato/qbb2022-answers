@@ -64,7 +64,7 @@ awk  '/^#/{next} {if ($4 == "C") {print $5}}' intersect_out_exercise2.vcf | sort
    4 G
   24 T
 ```
-Last, I ran awk again to identify the most common alternate cytosine reference allele for the variants in the promoter like regions. I found that thymine is the most common alternate allele. The results led me to the observation that cytosine has more mutations in promoter regions occur than I was expecting.
+Last, I ran awk again to identify the most common alternate cytosine reference allele for the variants in the promoter like regions. I found that thymine is the most common alternate allele. This makes sense because transition mutations are common. Transition mutations are where a purine is changed to another purine (A to G or G to A) or when a pyrimidine is changed to another pyrimidine (C to T or T to C). It makes sense that thymine was the most common alternate allele to cytosine because a transition mutation was likely occurring.
 
 
 Exercise 3:

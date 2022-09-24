@@ -4,6 +4,7 @@ import numpy as np
 import sys
 from fasta import readFASTA
 
+
 #Step 1
 sequence_file = sys.argv[1]
 input_sequences = readFASTA(open(sequence_file))
@@ -85,15 +86,12 @@ while(i!=0 or j!=0):
         sequence2_align = '-' + sequence2_align
         i-=1
                 
-print(sequence1_align)
-#print(sequence2_align)
-
-#command line input: ./week2hw.py needleman-wunsch/CTCF_38_M27_AA.faa needleman-wunsch/BLOSUM62.txt -10
+#print(sequence1_align)
+print(sequence2_align)
 
 
+#command line input for amino acid sequences: ./week2hw.py needleman-wunsch/CTCF_38_M27_AA.faa needleman-wunsch/BLOSUM62.txt -10
 
-
-
-
+#command line input for DNA sequences: ./week2hw.py needleman-wunsch/CTCF_38_M27_DNA.fna needleman-wunsch/HOXD70.txt -300
 
 

@@ -8,6 +8,9 @@ def run_experiment(n_iters = 100, seed = 389, correct_the_pvalues = False):
     Output: power, a float, the power of the experiment
     '''
     
+print(probs = numpy.around(numpy.arange(0.55, 1.05, 0.05), decimals=2)[::-1])
+
+    
     n_tosses = numpy.array([10, 50, 100, 250, 500, 1000])
     prob_heads = numpy.around(numpy.arange(0.55, 1.05, 0.05), decimals=2)[::-1]
     power_mat = numpy.zeros((len(n_tosses), len(prob_heads)))

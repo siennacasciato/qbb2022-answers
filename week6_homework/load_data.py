@@ -57,13 +57,16 @@ def main():
     
     data1_mat = square_matrix(data1)
     data2_mat = square_matrix(data2)
+    data3_mat = (square_matrix(data1)-square_matrix(data2))
     
     vmax = max(numpy.amax(data1_mat), numpy.amax(data2_mat))
     
     fig, axes = plt.subplots(ncols=3)
     axes[0].imshow(-data1_mat, cmap = 'magma', interpolation = 'nearest', vmax=0, vmin=-vmax)
-    plt.show()
-    
+    axes[1].imshow(-data2_mat, cmap = 'magma', interpolation = 'nearest', vmax=0, vmin=-vmax)
+    axes[2].imshow(-data3_mat, cmap = 'seismic', interpolation = 'nearest', vmax=0, vmin=-vmax)
+    #plt.show()
+    plt.savefig("heatmaps.png")
     
 
 def square_matrix(data):
